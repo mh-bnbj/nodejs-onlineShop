@@ -1,0 +1,47 @@
+<html>
+    <head>
+        <%- include('layout/head'); -%>
+    </head>
+
+    <body>
+        <body data-new-gr-c-s-check-loaded="14.1026.0" data-gr-ext-installed="">
+            <div class="container">
+                <%- include('layout/header', categories); -%>
+                <main role="main" class="container">
+                    <div class="row">
+                        <div class="col-md-8 blog-main">
+                            <h3 class="pb-3 mb-4 font-it<alic border-bottom"><%= categories[product.category_id] %></h3>
+
+                            <div class="blog-post">
+                                <img src="<%= product.image %>" width="600px" />
+                                <h2 class="blog-post-title"><%= product.name %></h2>
+                                <p class="blog-post-meta"><%= product.created_date %></p>
+
+                                <%= product.description %>
+                            </div>
+                            <!-- /.blog-post -->
+
+                            <nav class="blog-pagination">
+                                <a
+                                    class="btn btn-outline-primary <% if(!prevProductEnabled) { %> disabled <% } %>"
+                                    href="/product/<%= product.id - 1 %>"
+                                    >Older</a
+                                >
+                                <a
+                                    class="btn btn-outline-primary <% if(!nextProductEnabled) { %> disabled <% } %>"
+                                    href="/product/<%= product.id + 1 %>"
+                                    >Newer</a
+                                >
+                            </nav>
+                        </div>
+                        <!-- /.blog-main -->
+
+                        <%- include('layout/sidebar'); -%>
+                    </div>
+                    <!-- /.row -->
+                </main>
+            </div>
+            <%- include('layout/footer'); -%>
+        </body>
+    </body>
+</html>
