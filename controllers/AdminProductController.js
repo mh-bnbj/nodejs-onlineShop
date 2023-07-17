@@ -3,7 +3,7 @@ const Product = require('../models/Product')
 
 const get = async (req, res) => {
     const categories = await Category.findAll()
-    res.render('post/create', {
+    res.render('post/createProduct', {
         flash: req.flash(),
         errors: [],
         categories,

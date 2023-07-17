@@ -45,17 +45,17 @@ const post = async (req, res) => {
         user_id: created_user.id,
     })
 
-    // const html = await ejs.renderFile(path.join(__dirname, '../views/mail/auth.ejs'), {
-    //     title: 'Welcome to online store',
-    //     description: 'You have successfully registered in mohamadhasan store',
-    //     link: null,
-    // })
+    const html = await ejs.renderFile(path.join(__dirname, '../views/mail/auth.ejs'), {
+        title: 'Welcome to online store',
+        description: 'You have successfully registered in mohamadhasan Online Store',
+        link: null,
+    })
 
-    // await sendMail({
-    //     to: req.body.email,
-    //     subject: 'Welcome to store',
-    //     html: html,
-    // })
+    await sendMail({
+        to: req.body.email,
+        subject: 'Welcome to Online Store',
+        html: html,
+    })
 
     res.render('signup', {
         flash: req.flash(),

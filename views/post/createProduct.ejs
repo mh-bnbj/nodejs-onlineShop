@@ -1,12 +1,12 @@
 <html>
     <head>
-        <%- include('layout/head'); -%>
+        <%- include('../layout/head'); -%>
         <link href="/assets/css/dashboard.css" rel="stylesheet" />
     </head>
 
     <body data-new-gr-c-s-check-loaded="14.1026.0" data-gr-ext-installed="">
         <nav class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Online Store</a>
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="/">Ehsan Gazar Blog</a>
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="/logout">Sign out</a>
@@ -20,7 +20,7 @@
                     <div class="sidebar-sticky">
                         <ul class="nav flex-column">
                             <li class="nav-item">
-                                <a class="nav-link active" href="/dashboard">
+                                <a class="nav-link" href="/dashboard">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -60,7 +60,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/admin/createProduct">
+                                <a class="nav-link active" href="/admin/createProduct">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         width="24"
@@ -121,53 +121,69 @@
                             <div style="position: absolute; width: 200%; height: 200%; left: 0; top: 0"></div>
                         </div>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h1 class="h2">Dashboard</h1>
-                        <div class="d-flex">
-                            <h5 class="h5 red_bg p-2">sold</h5>
-                            <h5 class="h5 yellow_bg p-2" style="margin-left: 20px">on basket</h5>
-                        </div>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom">
+                        <h1 class="h2">Admin Panel</h1>
                     </div>
 
-                    <h2>Products</h2>
+                    <h2>Create Product</h2>
                     <div class="table-responsive">
-                        <table class="table border border-dark table-sm">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Name</th>
-                                    <th>category_id</th>
-                                    <th>price</th>
-                                    <th>imageLink</th>
-                                    <th>buyer id</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% products.forEach(function(product){ %>
-                                <tr class="<%= (product.user_id)?'red_bg':((product.basket_id)?'yellow_bg' : '') %>">
-                                    <td><%= product.id %></td>
-                                    <td><%= product.name %></td>
-                                    <td><%= product.categore_id %></td>
-                                    <td><%= product.price%> $</td>
-                                    <td>
-                                        <a href="<%=product.image %> "> Picture </a>
-                                    </td>
-                                    <td><%= product.user_id || '-' %></td>
-                                </tr>
-                                <% }); %>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="d-flex w-100 justify-content-center align-items-center">
-                        <nav aria-label="Page navigation example">
-                            <ul class="pagination">
-                                <% pages=(counts / 11) %> <% for(let i=0; i < pages ; i ++) { %>
-                                <li class="page-item <%= (activePageId === i+1)?'active':'' %>">
-                                    <a class="page-link" href="?page=<%= i+1 %> "> <%= i+1 %> </a>
-                                </li>
-                                <% } %>
-                            </ul>
-                        </nav>
+                        <form action="/admin/createProduct" method="POST" class="form-signin" enctype="multipart/form-data">
+                            <% for (const key in flash) { %>
+                            <div class="alert alert-<%= key === 'error'?'danger':key %>" role="alert"><%= flash[key] %></div>
+                            <% } %>
+                            <br />
+                            <label for="inputName" class="sr-only">Image</label>
+                            <input
+                                name="image"
+                                type="file"
+                                id="inputName"
+                                class="form-control"
+                                placeholder="Title"
+                                required=""
+                                autofocus=""
+                                autocomplete="off"
+                            />
+                            <br />
+                            <label for="inputName" class="sr-only">Name</label>
+                            <input
+                                name="name"
+                                type="text"
+                                id="inputName"
+                                class="form-control"
+                                placeholder="Name"
+                                required=""
+                                autofocus=""
+                                autocomplete="off"
+                            />
+                            <br />
+                            <label for="inputEmail" class="sr-only">Price</label>
+                            <input
+                                name="price"
+                                type="number"
+                                step="0.01"
+                                id="inputEmail"
+                                class="form-control"
+                                placeholder="Price"
+                                required=""
+                                autofocus=""
+                                autocomplete="off"
+                            />
+                            <br />
+                            <label for="inputEmail" class="sr-only">Category</label>
+                            <select name="category_id">
+                                <% categories.forEach(category => { %>
+                                <option value="<%= category.id %>"><%= category.name %></option>
+                                <% }) %>
+                            </select>
+                            <br />
+                            <br />
+                            <% errors.forEach(error=> { %>
+                            <div class="alert alert-danger" role="alert"><%= error.param %> - <%= error.msg %></div>
+                            <% }) %>
+                            <div style="width: 200px">
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Create</button>
+                            </div>
+                        </form>
                     </div>
                 </main>
             </div>

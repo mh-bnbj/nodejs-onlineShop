@@ -10,18 +10,31 @@
                 <main role="main" class="container">
                     <div class="row">
                         <div class="col-md-8 blog-main">
-                            <h3 class="pb-3 mb-4 font-it<alic border-bottom"><%= categories[product.category_id] %></h3>
+                            <h3 class="pb-3 mb-4 font-italic border-bottom"><%= categories[product.category_id] %></h3>
 
-                            <div class="blog-post">
+                            <div class="blog-post mb-1">
                                 <img src="<%= product.image %>" width="600px" />
                                 <h2 class="blog-post-title"><%= product.name %></h2>
-                                <p class="blog-post-meta"><%= product.created_date %></p>
-
-                                <%= product.description %>
+                                <p class="h5">Price :<span class="h3"> <%= product.price %>$</span></p>
                             </div>
-                            <!-- /.blog-post -->
 
-                            <nav class="blog-pagination">
+                            <% if (user && user_basket) { %>
+                            <div class="d-flex justify-content-center">
+                                <a
+                                    type="button"
+                                    class="btn btn-warning mt-0 <% if(product.basket_id == user_basket.id) { %> disabled <% } %>"
+                                    href="/addBasket?pid=<%=product.id%>"
+                                >
+                                    <% if(product.basket_id == user_basket.id) { %> already in basket <% } else{ %> add basket <% } %>
+                                </a>
+                            </div>
+                            <% } else{ %>
+                            <div class="d-flex justify-content-center">
+                                <a type="button" class="btn btn-warning mt-0" href="/login"> first login </a>
+                            </div>
+                            <% } %>
+
+                            <nav class="blog-pagination mt-3">
                                 <a
                                     class="btn btn-outline-primary <% if(!prevProductEnabled) { %> disabled <% } %>"
                                     href="/product/<%= product.id - 1 %>"

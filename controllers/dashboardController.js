@@ -14,13 +14,7 @@ const dashboardController = async (req, res) => {
     })
     res.render('dashboard', {
         categories: categories.map((category) => category.name),
-        products: products.map((product) => {
-            return {
-                id: product.id,
-                name: product.name,
-                created_at: format(new Date(product.created_date), 'yyyy/mm/dd'),
-            }
-        }),
+        products: products,
         activeCategoryId: null,
         counts,
         activePageId,

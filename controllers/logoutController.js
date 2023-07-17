@@ -1,6 +1,10 @@
 const logoutController = (req, res) => {
-  req.logout()
-  res.redirect('/')
+    req.logout(function (err) {
+        if (err) {
+            return next(err)
+        }
+        res.redirect('/login')
+    })
 }
 
 module.exports = logoutController

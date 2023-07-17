@@ -95,3 +95,10 @@ body {
 .border-bottom {
   border-bottom: 1px solid #e5e5e5;
 }
+
+.red_bg{
+  background-color: rgb(255, 75, 75);
+}
+.yellow_bg{
+  background-color: rgb(255, 242, 66);
+}

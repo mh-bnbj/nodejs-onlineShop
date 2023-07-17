@@ -16,7 +16,7 @@ const searchController = async (req, res) => {
     })
     const products = await Product.findAll({
         where: {
-            title: {
+            name: {
                 [Op.like]: `%${req.query.q}%`,
             },
             user_id: null,

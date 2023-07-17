@@ -8,6 +8,7 @@ const Basket = db.define(
         id: {
             type: DataTypes.NUMBER,
             allowNull: false,
+            autoIncrement: true,
             primaryKey: true,
         },
         user_id: {
